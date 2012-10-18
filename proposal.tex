@@ -1,0 +1,144 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{etex}
+\usepackage[utf8x]{inputenc}
+\usepackage[british]{babel}
+
+\usepackage{charter}
+\usepackage[charter]{mathdesign}
+\usepackage{fullpage}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{paralist}
+\usepackage{enumitem}
+
+% Keep this last:
+\usepackage[hyphens]{url}
+%\usepackage[pdfborder=0]{hyperref}
+\usepackage[
+	breaklinks=true,
+	colorlinks=true,
+	citecolor=NavyBlue,
+	linkcolor=Maroon,
+	urlcolor=WildStrawberry
+]{hyperref}
+\usepackage{breakcites}
+
+\newcommand{\XXX}[1]{\textcolor{red}{[\textbf{#1}]}}
+
+\raggedbottom
+
+\title{SAT 2013 Solver Competition Proposal: \\ Crypto Competition}
+\author{Vegard Nossum and Mate Soos}
+
+\bibliographystyle{cell}
+
+\begin{document}
+\maketitle
+
+%\setlist{nolistsep}
+\setlist{noitemsep}
+
+\section{Summary}
+
+\paragraph{Competition title:} “SAT 2013 Crypto Competition”
+
+\paragraph{Description:}
+Previous SAT competitions have typically tested solvers on three classes of instances, each with their own performance characteristics:
+\begin{inparaenum}
+\item random instances, a theoretically important class of instances;
+\item instances which have real-life applications (in industry or otherwise); and
+\item instances designed to be challenging to SAT solvers.
+\end{inparaenum}
+
+Past competitions have typically included a few instances encoding attacks on cryptographic primitives. These instances are expected to be among the hardest instances one can solve, since cryptographic primitives are designed for the exact purpose of being difficult to solve.
+
+\XXX{TODO: Justification of \emph{why} we should be testing cryptographic instances.}
+
+One essential difference between this competition and previous competitions is that all instances are satisfiable. The reason for this is that in all cases, solutions represent successful cryptographic attacks. As such, incomplete (and hybrid) solvers are also welcome to compete alongside complete SAT solvers.
+
+
+\paragraph{Organisers:}
+\begin{itemize}
+\item Name: Vegard Nossum \\ E-mail: \texttt{vegard.nossum@gmail.com} \\ Affiliation: Department of Informatics, University of Oslo
+\item Name: Mate Soos \\ E-mail: \texttt{mate@srlabs.de} \\ Affiliation: Security Research Labs
+\end{itemize}
+
+\paragraph{Duration and schedule of the competition:} The competition is split into two rounds, qualifications and finals. The purpose of the split is to limit the number of participants in the final round. Participants must register for the qualifications by submitting their solver before \emph{May 1}. The submitted solvers will run for 1 month (the difficulty of the instances and the solver timeout will be adjusted depending on the number of entries and available CPU time). The final round starts on \emph{June 1} and the solvers which qualified will run for 1 month (again, the difficulty of the instances and the solver timeout will be adjusted depending on the available CPU time).
+
+Results will be announced during the main SAT conference between July 9--12. The organisers request one slot of 45 minutes to present the results of both rounds.
+
+\section{Competition task}
+
+The competition has four major categories:
+\begin{inparaenum}[(1)]
+\item block ciphers;
+\item stream ciphers;
+\item hash functions; and
+\item miscellaneous/others.
+\end{inparaenum}
+Each of the first three major categories contain a number of minor categories, corresponding to specific cryptographic algorithms. The last major category contains miscellaneous instances which do not directly correspond to a specific cryptographic algorithm. Instead, they encode problems which are assumed to be hard and whose efficient solution would break the security of one or more (unspecified) cryptographic algorithms. The categories are as follows:
+
+\begin{itemize}
+\item Hash functions (preimage attacks, second-preimage attacks, and collision attacks)
+\begin{itemize}
+\item MD4, MD5~\cite{Jova2005, Miro2006, De2007}
+\item RIPEMD160
+\item SHA-0~\cite{Miro2006}
+\item SHA-1~\cite{Mora2010}
+\item SHA-2
+\item SHA-3~\cite{Mora2010}
+\item PhotonHash
+\end{itemize}
+
+\item Block ciphers (known-plaintext key-recovery attacks)
+\begin{itemize}
+\item DES~\cite{Massacci2000, Courtois2007}
+\item KeeLoq~\cite{Cour2008}
+\item AES
+\end{itemize}
+
+\item Stream ciphers (known-plaintext state-recovery attacks)
+\begin{itemize}
+\item Crypto-1~\cite{Soos2009}
+\item HiTag2~\cite{Soos2009}
+\item Bivium~\cite{Soos2009, McDonald2010}
+\item Trivium~\cite{Soos2009, McDonald2010}
+\item Grain~\cite{Soos2010}
+\end{itemize}
+
+\item Others
+\begin{itemize}
+\item Modular root finding~\cite{Fiorini2003}
+\item Integer factorisation~\cite{Sreb2007}
+\item Multivariate quadratic systems~\cite{Bard2007}
+\end{itemize}
+\end{itemize}
+
+For each minor category, a certain number of instances (e.g.\ 100) will be generated at random. The main task of the competition will be for the submitted SAT solver to find a solution, using as little time as possible, to each instance. Timeouts mean that the solver needs \emph{at least} the time taken to solve a given instance. All solutions found will be verified externally; incorrect solutions will count as a timeout when counting the total time.
+
+\section{Evaluation procedure}
+
+%It would be the first competition where multiple runs per instance is used and we have a measure of variability for the solvers.
+
+%We can use both Games-Howell and the methodology of Nikolić.
+
+%The raw data for the results will be released under a permissive license and open to research by anybody.
+
+For the qualification round, all solvers are ranked by their total time to solve all instances in a particular minor category. The 10 best solvers in each minor category will compete in the final round for that particular minor category. As such, each category of instances could have completely disjoint sets of solvers in the final round.
+
+For the final round, the solver with the smallest total time to solve all the instances in its category will be deemed the winner of that category.
+
+We assume that the number of (randomised) instances for each category will be enough to distinguish two solvers with statistical siginificance. However, we may also test for significance between all pairwise differences between the mean running times using e.g.\ the Games-Howell procedure~\cite{Games1979} or the methodologies of \cite{Nikolic2010} or \cite{Gelder2011}. Additionally, the raw data (times for each solver on each instance) will be released under a permissive license and open to research by anybody.
+
+\section{Computing resources}
+
+The 2012 SAT Competition received 63 solvers. Assuming 65 solvers for the qualification around, a minimum time limit of 15 minutes per run, 20 runs per category, and 20 categories, this gives a worst-case estimate on the total CPU time at approximately 271 days.
+
+For the final round, we have at most 10 solvers per category. We should increase the time limit to 30 minutes and the number of runs per category to 100. this gives a worst-case estimate on the total CPU time at approximately 416 days.
+
+We will apply to NOTUR, the Norwegian metacenter for computational science, to request the required amount of CPU time at one of their supercomputer clusters.
+
+\bibliography{bibliography}
+
+\end{document}
