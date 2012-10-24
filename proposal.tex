@@ -51,11 +51,13 @@ Previous SAT competitions have typically tested solvers on three classes of inst
 \item instances designed to be challenging to SAT solvers.
 \end{inparaenum}
 
-Past competitions have typically included a few instances encoding attacks on cryptographic primitives. These instances are expected to be among the hardest instances one can solve, since cryptographic primitives are designed for the exact purpose of being difficult to solve.
+Past competitions have typically included a few instances encoding attacks on cryptographic primitives. These instances are expected to be among the hardest instances one can solve if no help is given to the solver, since cryptographic primitives are designed for the exact purpose of being difficult to solve for certain aspects e.g. the key for ciphers or collision in case of hash functions.
 
-\XXX{TODO: Justification of \emph{why} we should be testing cryptographic instances.}
+\XXX{TODO: Justification of \emph{why} we should be testing cryptographic instances. --- NOTE: I think this is already good enough justification}
 
-One essential difference between this competition and previous competitions is that all instances are satisfiable. The reason for this is that in all cases, solutions represent successful cryptographic attacks. As such, incomplete (and hybrid) solvers are also welcome to compete alongside complete SAT solvers.
+An essential difference between this competition and previous competitions is that all instances are satisfiable. The reason for this is that in all cases, solutions represent successful cryptographic attacks. As such, incomplete (and hybrid) solvers are also welcome to compete alongside complete SAT solvers.
+
+Satisfiable instaces make it harder to evaluate speed as they tend to behave more erratically---different random seeds have a large impact on behaviour. However, cryptographic instances have the advantage that any number of instances of approximately the same difficulty can be generated without much effort. Using enough measurements a highly reliable solving speed can be attained. We plan on exploiting this potential to its fullest to bring comparable, meaningful, stable results.
 
 
 \paragraph{Organisers:}
@@ -64,7 +66,8 @@ One essential difference between this competition and previous competitions is t
 \item Name: Mate Soos \\ E-mail: \texttt{mate@srlabs.de} \\ Affiliation: Security Research Labs
 \end{itemize}
 
-\paragraph{Duration and schedule of the competition:} The competition is split into two rounds, qualifications and finals. The purpose of the split is to limit the number of participants in the final round. Participants must register for the qualifications by submitting their solver before \emph{May 1}. The submitted solvers will run for 1 month (the difficulty of the instances and the solver timeout will be adjusted depending on the number of entries and available CPU time). The final round starts on \emph{June 1} and the solvers which qualified will run for 1 month (again, the difficulty of the instances and the solver timeout will be adjusted depending on the available CPU time).
+\paragraph{Duration and schedule of the competition:} The competition is split into two rounds, \emph{qualifications} and \emph{finals}. The purpose of the split is to limit the number of participants in the final round. Participants must register for the qualifications by submitting their solver before \emph{May 1}. The submitted solvers will run for 1 month: the difficulty of the instances and the solver timeout will be adjusted depending on the number of entries and available CPU time. The final round starts on \emph{June 1} and the qualified solvers will run for 1 month. Again, the difficulty of the instances and the solver timeout will be adjusted depending on the available CPU time.
+\XXX{MAYBE: vary number of insteances to get more reliablity instead of timeout and difficulty}
 
 Results will be announced during the main SAT conference between July 9--12. The organisers request one slot of 45 minutes to present the results of both rounds.
 
@@ -95,15 +98,20 @@ Each of the first three major categories contain a number of minor categories, c
 \begin{itemize}
 \item DES~\cite{Massacci2000, Courtois2007}
 \item KeeLoq~\cite{Cour2008}
-\item AES
+\item AES [\href{cs.swan.ac.uk/~csmg/Hardness/2012_SAT_AESBenchmarks.pdf}{Advanced Encryption Standard II benchmarks by Matthew Gwynne and Oliver Kullman}], \cite{DBLP:conf/ches/RenauldSV09}
+
+\item PRESENT [\href{https://www.cosic.esat.kuleuven.be/ecrypt/courses/albena11/slides/martin_albrecht_algebraic_cryptanalysis.pdf}{Algebraic Techniques in Cryptanalysis
+of Block Ciphers by Martin Albrecht}]
+
+
 \end{itemize}
 
 \item Stream ciphers (known-plaintext state-recovery attacks)
 \begin{itemize}
 \item Crypto-1~\cite{Soos2009}
 \item HiTag2~\cite{Soos2009}
-\item Bivium~\cite{Soos2009, McDonald2010}
-\item Trivium~\cite{Soos2009, McDonald2010}
+\item Bivium~\cite{Eibach:2008:ABU:1789854.1789861,Soos2009, McDonald2010}
+\item Trivium~\cite{Eibach:2008:ABU:1789854.1789861,Soos2009, McDonald2010}
 \item Grain~\cite{Soos2010}
 \end{itemize}
 
